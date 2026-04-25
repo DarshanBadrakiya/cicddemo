@@ -7,10 +7,17 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests yet\"",
-    "start":"node index.js"
+    "test": "jest",
+    "lint": "eslint .",
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2"
   }
 }
