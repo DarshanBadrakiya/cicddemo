@@ -1,0 +1,31 @@
+name : CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Dependancies
+        run: npm install 
+      
+      - name: Run Tests
+        run: npm test
+      
+      - name: Build Docker image
+        run: docker build -t demoapp .
+      
+      - name: Login to Docker Hub
+        run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "{{secrets.DOCKER_USERNAME}}" --password-stdin
+      
+      - name: Tag Image
+        run: docker tag demoapp ${{ secrets.DOCKEER_USERNAME }}/demoapp:latest
+
+      - name: Push Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/demoapp:latest
